@@ -1,23 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import "./css/App.css";
+import Login from "./js/Login";
+import Clock from "./js/Clock";
+import Background from "./js/Background";
+import Todo from "./js/Todo";
+import { useState, useEffect } from "react";
+import Quote from "./js/Quote";
+import Weather from "./js/Weather";
 
 function App() {
+  const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    const savedUsername = localStorage.getItem("username");
+    if (savedUsername) {
+      setUsername(savedUsername);
+    }
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Background />
+      <Weather />
+      <Clock />
+      {username ? <Todo /> : <Login />}
+      <Quote />
     </div>
   );
 }
